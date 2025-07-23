@@ -1,0 +1,32 @@
+<svg width="118" height="40" viewBox="0 0 118 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background rectangle with rounded corners - transparent -->
+  <rect width="118" height="40" rx="4" fill="transparent"/>
+  
+  <!-- Vitruvian Man inspired minimalist icon -->
+  <g transform="translate(1, 8) scale(0.75)">
+    <!-- Circle representing the cosmic circle -->
+    <circle cx="16" cy="16" r="15" stroke="#0061F2" stroke-width="1.5" fill="none"/>
+    <!-- Human figure - minimalist representation -->
+    <path d="M16 5 L16 27 M10 9 L22 9 M8 16 L24 16 M10 23 L22 23" stroke="#0061F2" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Arms extended -->
+    <path d="M16 16 L5 16 M16 16 L27 16" stroke="#0061F2" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Legs -->
+    <path d="M16 16 L11 27 M16 16 L21 27" stroke="#0061F2" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  
+  <!-- illunare text with gradient -->
+  <text x="35" y="26" font-family="Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="0.5">
+    <tspan fill="url(#textGradient)">illunare</tspan>
+  </text>
+  
+  <!-- Dot after text -->
+  <circle cx="113" cy="25" r="2.2" fill="#070127"/>
+  
+  <!-- Gradient definition for text -->
+  <defs>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0061F2"/>
+      <stop offset="100%" stop-color="#6C47FF"/>
+    </linearGradient>
+  </defs>
+</svg> 
