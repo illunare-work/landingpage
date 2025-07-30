@@ -1,0 +1,14 @@
+<svg width="50" height="40" viewBox="0 0 50 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Vitruvian Man inspired minimalist icon - precisely aligned with logo-default-dark -->
+  <g transform="translate(13, 20) scale(0.75)">
+    <!-- Circle representing the cosmic circle - exact horizontal alignment at 13px -->
+    <circle cx="0" cy="0" r="15" stroke="#FFF" stroke-width="1.5" fill="none"/>
+    <!-- Human figure - minimalist representation - exact same horizontal position -->
+    <path d="M0 -11 L0 11 M-6 -7 L6 -7 M-8 0 L8 0 M-6 7 L6 7" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Arms extended - exact same horizontal alignment -->
+    <path d="M0 0 L-11 0 M0 0 L11 0" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Legs - exact same horizontal alignment -->
+    <path d="M0 0 L-5 11 M0 0 L5 11" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+</svg> 
