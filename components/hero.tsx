@@ -7,11 +7,14 @@ import { WordRotate } from '@/components/magicui/word-rotate';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const Hero = () => {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const isVideoButtonDisabled = true; // Botão travado permanentemente
+  // Para reativar o botão, altere para false ou use useState(false)
 
   useEffect(() => setMounted(true), []);
 
@@ -187,19 +190,45 @@ const Hero = () => {
             className="relative max-w-5xl mx-auto"
           >
             {mounted && (
-              <HeroVideoDialog
-                trigger={
-                  <div className="bg-purple-600/10 dark:bg-purple-300/10 backdrop-blur-md rounded-full p-4 shadow-lg">
-                    <div className="bg-background rounded-full p-3 shadow-lg">
-                      <Play className="size-6 text-purple-600 dark:text-purple-400 fill-purple-600 dark:fill-purple-400 ml-0.5" />
+              <>
+                {isVideoButtonDisabled ? (
+                  /* Versão desabilitada com background preservado */
+                  <div className="relative">
+                    {/* Background da imagem baseado no tema */}
+                    <Image
+                      src={resolvedTheme === 'dark' ? '/screens/2.png' : '/screens/1.png'}
+                      alt="Demonstração do Produto"
+                      width={1200}
+                      height={800}
+                      className="w-full rounded-2xl shadow-2xl border border-border"
+                      priority
+                    />
+                    {/* Overlay desabilitado */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="bg-purple-600/10 dark:bg-purple-300/10 backdrop-blur-md rounded-full p-4 shadow-lg cursor-not-allowed opacity-75">
+                        <div className="bg-background rounded-full p-3 shadow-lg">
+                          <Play className="size-6 text-purple-600 dark:text-purple-400 fill-purple-600 dark:fill-purple-400 ml-0.5" />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                }
-                animationStyle="from-center"
-                videoSrc="https://youtu.be/B12xccSD4z4"
-                thumbnailSrc={resolvedTheme === 'dark' ? '/screens/2.png' : '/screens/1.png'}
-                thumbnailAlt="Demonstração do Produto"
-              />
+                ) : (
+                  /* Botão funcional completo */
+                  <HeroVideoDialog
+                    trigger={
+                      <div className="bg-purple-600/10 dark:bg-purple-300/10 backdrop-blur-md rounded-full p-4 shadow-lg">
+                        <div className="bg-background rounded-full p-3 shadow-lg">
+                          <Play className="size-6 text-purple-600 dark:text-purple-400 fill-purple-600 dark:fill-purple-400 ml-0.5" />
+                        </div>
+                      </div>
+                    }
+                    animationStyle="from-center"
+                    videoSrc="#"
+                    thumbnailSrc={resolvedTheme === 'dark' ? '/screens/2.png' : '/screens/1.png'}
+                    thumbnailAlt="Demonstração do Produto"
+                  />
+                )}
+              </>
             )}
           </motion.div>
         </div>

@@ -50,29 +50,29 @@ const nextConfig = {
 		} : false,
 	},
 	
-	// Turbopack configuration for development
-	turbopack: {
-		// Module resolution extensions
-		resolveExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
-		
-		// Resolve aliases (matching tsconfig paths)
-		resolveAlias: {
-			'@': '.',
-			'@/components': './components',
-			'@/lib': './lib',
-			'@/hooks': './hooks',
-			'@/config': './config',
-			'@/styles': './styles',
-		},
-		
-		// Rules for CSS processing
-		rules: {
-			'*.css': {
-				loaders: [],
-				as: '*.css',
-			},
-		},
-	},
+	// Temporarily disable Turbopack for stability
+	// turbopack: {
+	// 	// Module resolution extensions
+	// 	resolveExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+	// 	
+	// 	// Resolve aliases (matching tsconfig paths)
+	// 	resolveAlias: {
+	// 		'@': '.',
+	// 		'@/components': './components',
+	// 		'@/lib': './lib',
+	// 		'@/hooks': './hooks',
+	// 		'@/config': './config',
+	// 		'@/styles': './styles',
+	// 	},
+	// 	
+	// 	// Rules for CSS processing
+	// 	rules: {
+	// 		'*.css': {
+	// 			loaders: [],
+	// 			as: '*.css',
+	// 		},
+	// 	},
+	// },
 	
 	// Webpack optimizations (for production builds)
 	webpack: (config: any, { dev, isServer }: { dev: boolean; isServer: boolean }) => {
@@ -109,20 +109,27 @@ const nextConfig = {
 			};
 		}
 		
-		// Suppress specific CSS warnings in development too
-		if (dev) {
-			config.stats = {
-				...config.stats,
-				warningsFilter: [
-					/Failed to parse.*opacity/,
-					/Failed to parse.*background/,
-					/Failed to parse.*webkit-text-size-adjust/,
-					/Ignored rule due to incorrect selector/,
-					/Unknown pseudo-class or pseudo-element/,
-					/unreachable code after return statement/,
-				],
-			};
-		}
+					// Suppress specific CSS warnings in development too
+			if (dev) {
+				config.stats = {
+					...config.stats,
+					warningsFilter: [
+						/Failed to parse.*opacity/,
+						/Failed to parse.*background/,
+						/Failed to parse.*webkit-text-size-adjust/,
+						/Failed to parse.*-moz-text-size-adjust/,
+						/Failed to parse.*text-size-adjust/,
+						/Ignored rule due to incorrect selector/,
+						/Unknown pseudo-class or pseudo-element/,
+						/Unknown property.*field-sizing/,
+						/unreachable code after return statement/,
+						/Propriedade desconhecida/,
+						/Pseudo-classe ou pseudo-elemento.*desconhecido/,
+						/Conjunto de regras ignorado/,
+						/Erro ao analisar o valor/,
+					],
+				};
+			}
 		
 		return config;
 	},
@@ -139,7 +146,7 @@ const nextConfig = {
 					},
 					{
 						key: 'X-Frame-Options',
-						value: 'DENY',
+						value: 'SAMEORIGIN',
 					},
 					{
 						key: 'X-XSS-Protection',
@@ -151,7 +158,7 @@ const nextConfig = {
 					},
 					{
 						key: 'Permissions-Policy',
-						value: 'camera=(), microphone=(), geolocation=()',
+						value: 'camera=(), microphone=(), geolocation=(), accelerometer=(), autoplay=(), clipboard-write=(), encrypted-media=(), gyroscope=(), picture-in-picture=()',
 					},
 					{
 						key: 'Content-Security-Policy',

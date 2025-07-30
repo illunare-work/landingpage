@@ -1,8 +1,11 @@
+"use client";
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { CustomBadge } from '@/components/custom/badge';
 import { CustomTitle } from '@/components/custom/title';
 import { CustomSubtitle } from '@/components/custom/subtitle';
+import SecureImage from '@/components/security/secure-image';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -14,7 +17,6 @@ const HowItWorks = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [hasStarted, setHasStarted] = useState(false); // Track if animation has started
-  const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
   
   const progressRef = useRef<number>(0);
   const animationFrameRef = useRef<number | undefined>(undefined);
@@ -51,7 +53,22 @@ const HowItWorks = () => {
 
   const stepDuration = 4000;
 
+  // Auto-scroll timing with steps
+  useEffect(() => {
+    if (!hasStarted || activeStep === -1) return;
+
+    const timer = setTimeout(() => {
+      if (activeStep < steps.length - 1) {
+        setActiveStep(prev => prev + 1);
+      }
+    }, 3000); // 3 seconds per step
+
+    return () => clearTimeout(timer);
+  }, [activeStep, hasStarted, steps.length]);
+
   // Detect screen size for responsive calculations (mobile-first)
+  const [, setScreenSize] = useState<'mobile' | 'tablet' | 'desktop'>('mobile');
+
   useEffect(() => {
     const updateScreenSize = () => {
       if (typeof window !== 'undefined') {
@@ -66,17 +83,10 @@ const HowItWorks = () => {
       }
     };
 
-    // Initialize with mobile-first approach
-    setScreenSize('mobile');
     updateScreenSize();
-    
-    const debouncedResize = (() => {
-      let timeoutId: NodeJS.Timeout;
-      return () => {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(updateScreenSize, 100);
-      };
-    })();
+    const debouncedResize = () => {
+      setTimeout(updateScreenSize, 100);
+    };
 
     window.addEventListener('resize', debouncedResize, { passive: true });
     return () => {
@@ -84,60 +94,7 @@ const HowItWorks = () => {
     };
   }, []);
 
-  // Calculate responsive values (mobile-first approach) - optimized for dynamic positioning
-  const getStepSpacing = () => {
-    switch (screenSize) {
-      case 'mobile': return 8; // Gap between steps
-      case 'tablet': return 10; // Gap between steps
-      case 'desktop': return 12; // Gap between steps
-      default: return 8; // Fallback to mobile
-    }
-  };
-
-  const getStepHeight = (isActive: boolean) => {
-    if (isActive) {
-      switch (screenSize) {
-        case 'mobile': return 110; // Expanded step height
-        case 'tablet': return 125; // Expanded step height
-        case 'desktop': return 140; // Expanded step height
-        default: return 110; // Fallback to mobile
-      }
-    } else {
-      switch (screenSize) {
-        case 'mobile': return 52; // Collapsed step height
-        case 'tablet': return 58; // Collapsed step height
-        case 'desktop': return 65; // Collapsed step height
-        default: return 52; // Fallback to mobile
-      }
-    }
-  };
-
-  // Calculate dynamic positioning based on accumulated heights
-  const calculateStepPosition = (index: number) => {
-    let position = 0;
-    const spacing = getStepSpacing();
-    
-    for (let i = 0; i < index; i++) {
-      position += getStepHeight(i === activeStep) + spacing;
-    }
-    
-    return position;
-  };
-
-  // Calculate total container height needed
-  const calculateContainerHeight = () => {
-    const spacing = getStepSpacing();
-    let totalHeight = 0;
-    
-    for (let i = 0; i < steps.length; i++) {
-      totalHeight += getStepHeight(i === activeStep);
-      if (i < steps.length - 1) {
-        totalHeight += spacing;
-      }
-    }
-    
-    return totalHeight;
-  };
+  // Simplified layout - removed complex calculations for better stability
 
   // Optimized scroll detection with debouncing
   const handleScroll = useCallback(() => {
@@ -171,17 +128,15 @@ const HowItWorks = () => {
     };
   }, [handleScroll]);
 
-  // Auto-start animation when component enters view (mobile-optimized)
+  // Auto-start animation when component enters view
   useEffect(() => {
     if (isInView && !hasStarted) {
       setHasStarted(true);
-      // Responsive delay: shorter on mobile for better UX
-      const delay = screenSize === 'mobile' ? 600 : screenSize === 'tablet' ? 700 : 800;
       setTimeout(() => {
         setActiveStep(0);
-      }, delay);
+      }, 800);
     }
-  }, [isInView, hasStarted, screenSize]);
+  }, [isInView, hasStarted]);
 
   // Optimized progress animation using requestAnimationFrame
   const animateProgress = useCallback(() => {
@@ -316,43 +271,21 @@ const HowItWorks = () => {
           {/* Left Side - Collapsible Step Navigation (Mobile-First) */}
           <div className="order-2 lg:order-1">
             {/* Dynamic container with calculated height to fit all steps */}
-            <div 
-              className="relative"
-              style={{ 
-                height: `${calculateContainerHeight()}px`,
-                overflow: 'visible', // Allow natural flow
-                position: 'relative',
-                transition: 'height 0.3s ease-in-out'
-              }}
-            >
+            <div className="space-y-3">
               {steps.map((step, index) => (
                 <motion.div
                   key={step.id}
-                  layoutId={`step-${step.id}`}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ 
-                    opacity: 1, 
-                    y: 0,
-                    top: calculateStepPosition(index)
-                  }}
-                  transition={{ 
-                    opacity: { duration: 0.4, delay: index * 0.1 },
-                    y: { duration: 0.4, delay: index * 0.1 },
-                    top: { duration: 0.3, ease: "easeInOut" }
-                  }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
                   className={cn(
-                    'absolute inset-x-0 rounded-lg cursor-pointer transition-all duration-300 border',
-                    'will-change-transform backdrop-blur-sm',
-                    index === activeStep && 'bg-background/95 border-border/50 shadow-lg shadow-black/5 z-20',
-                    index !== activeStep && 'bg-background/80 hover:bg-background/90 border-transparent hover:border-border/30 hover:shadow-md hover:shadow-black/5 z-10'
+                    'rounded-lg cursor-pointer transition-all duration-300 border backdrop-blur-sm',
+                    index === activeStep && 'bg-background/95 border-border/50 shadow-lg shadow-black/5',
+                    index !== activeStep && 'bg-background/80 hover:bg-background/90 border-transparent hover:border-border/30 hover:shadow-md hover:shadow-black/5'
                   )}
                   style={{
-                    top: `${calculateStepPosition(index)}px`,
-                    height: `${getStepHeight(index === activeStep)}px`,
-                    left: '0',
-                    right: '0',
-                    position: 'absolute',
-                    transition: 'height 0.3s ease-in-out, background-color 0.2s ease, top 0.3s ease-in-out'
+                    height: index === activeStep ? '140px' : '65px',
+                    transition: 'height 0.3s ease-in-out, background-color 0.2s ease'
                   }}
                   onClick={() => handleStepClick(index)}
                   whileHover={{ scale: index === activeStep ? 1.005 : 1.01 }}
@@ -437,14 +370,11 @@ const HowItWorks = () => {
           </div>
 
           {/* Right Side - Mobile-First Image Display */}
-          <div className="order-1 lg:order-2 relative h-64 sm:h-72 md:h-80 lg:h-96 rounded-lg sm:rounded-xl overflow-hidden border border-border p-1.5 sm:p-2 bg-background">
+          <div className="order-1 lg:order-2 relative h-64 sm:h-72 md:h-80 lg:h-96 rounded-lg sm:rounded-xl overflow-hidden border border-border bg-background">
             <AnimatePresence mode="wait">
               {activeStep >= 0 && steps[activeStep] && (
-                <motion.img
+                <motion.div
                   key={`image-${activeStep}`}
-                  src={steps[activeStep].image}
-                  alt={`${steps[activeStep].title} visualization`}
-                  className="w-full h-full object-cover border border-border rounded-md"
                   initial={{ opacity: 0, scale: 1.02 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
@@ -453,9 +383,18 @@ const HowItWorks = () => {
                     ease: "easeInOut",
                     opacity: { duration: 0.3 }
                   }}
-                  loading="lazy"
+                  className="w-full h-full"
                   style={{ willChange: 'transform, opacity' }}
-                />
+                >
+                  <SecureImage
+                    src={steps[activeStep]?.image || '/screens/1.png'}
+                    alt={`Visualização da etapa: ${steps[activeStep]?.title || 'Carregando'}`}
+                    className="w-full h-full object-cover object-top rounded-md"
+                    loading="lazy"
+                    width={800}
+                    height={600}
+                  />
+                </motion.div>
               )}
               {activeStep === -1 && (
                 <motion.div
