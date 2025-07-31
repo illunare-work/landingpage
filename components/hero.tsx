@@ -161,7 +161,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-base md:text-xl text-muted-foreground mb-6 md:mb-12 max-w-[600px] mx-auto leading-relaxed"
           >
-            Revolucione seu negócio com nossa plataforma de IA multimodal avançada.
+            Revolucione seu negócio com nossa plataforma de IA multimodal de gestão avançada.
             Da concepção ao resultado em minutos - não em meses.
           </motion.p>
 

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s | illunare',
     default: 'illunare 4.0 — IA multimodal com precisão de nível quântico 🚀',
   },
-  description: 'Revolucione seu negócio com nossa plataforma de IA multimodal avançada. Inovação 4.0 eficiente, rentável e nacional. Teste grátis por 7 dias.',
+  description: 'Revolucione seu negócio com nossa plataforma de IA multimodal de gestão avançada. Inovação 4.0 eficiente, rentável e nacional. Teste grátis por 7 dias.',
   keywords: ['IA multimodal', 'inteligência artificial', 'inovação 4.0', 'automação', 'machine learning', 'deep learning', 'análise de dados', 'processamento de linguagem natural', 'visão computacional', 'IA brasileira', 'transformação digital'],
   authors: [{ name: 'illunare Team' }],
   creator: 'illunare',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     url: 'https://illunare.com.br',
     siteName: 'illunare',
     title: 'illunare 4.0 — IA multimodal com precisão de nível quântico 🚀',
-    description: 'Revolucione seu negócio com nossa plataforma de IA multimodal avançada. Inovação 4.0 eficiente, rentável e nacional.',
+    description: 'Revolucione seu negócio com nossa plataforma de IA multimodal de gestão avançada. Inovação 4.0 eficiente, rentável e nacional.',
     images: [
       {
         url: 'https://illunare.com.br/og-image.jpg',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'illunare 4.0 — IA multimodal com precisão de nível quântico 🚀',
-    description: 'Revolucione seu negócio com nossa plataforma de IA multimodal avançada. Teste grátis por 7 dias.',
+    description: 'Revolucione seu negócio com nossa plataforma de IA multimodal de gestão avançada. Teste grátis por 7 dias.',
     images: ['https://illunare.com.br/og-image.jpg']
   }
 };

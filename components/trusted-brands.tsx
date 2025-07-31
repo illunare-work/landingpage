@@ -57,15 +57,6 @@ const TrustedBrands = () => {
       )
     },
     {
-      name: 'Tesla',
-      logo: (
-        <svg className="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 5.362L2.4 8.638c4.8-1.8 9.6-3.6 9.6-3.6s4.8 1.8 9.6 3.6L12 5.362z" fill="currentColor"/>
-          <path d="M12 8.638s-4.2 1.2-9.6 2.4v9.6c0 1.2.6 1.8 1.8 1.8h15.6c1.2 0 1.8-.6 1.8-1.8v-9.6c-5.4-1.2-9.6-2.4-9.6-2.4z" fill="currentColor"/>
-        </svg>
-      )
-    },
-    {
       name: 'Spotify',
       logo: (
         <svg className="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
@@ -118,7 +109,7 @@ const TrustedBrands = () => {
           className="text-center mb-12"
         >
           <p className="text-sm font-semibold text-muted-foreground tracking-wider mb-6">
-            Parceria que impulsiona visionários
+            Intregração sistêmica com os principais players
           </p>
         </motion.div>
 

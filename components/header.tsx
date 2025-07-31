@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 const Header = () => {
-  const navItems = ['Início', 'Recursos', 'Como Funciona', 'Preços', 'FAQ', 'Contato'];
+  const navItems = ['Início', 'Como Funciona', 'Recursos', 'Preços', 'FAQ', 'Contato'];
 
   const { resolvedTheme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,7 +36,7 @@ const Header = () => {
       }
 
       // Track active section based on scroll position
-      const sections = ['features', 'how-it-works', 'pricing', 'faq', 'contact'];
+      const sections = ['how-it-works', 'features', 'pricing', 'faq', 'contact'];
       const scrollPosition = window.scrollY + 200;
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -67,8 +67,8 @@ const Header = () => {
     } else {
       // Map menu items to correct section IDs
       const sectionMap: { [key: string]: string } = {
-        'Recursos': 'features',
         'Como Funciona': 'how-it-works',
+        'Recursos': 'features',
         'Preços': 'pricing',
         'FAQ': 'faq',
         'Contato': 'contact'
@@ -90,8 +90,8 @@ const Header = () => {
   const isActiveItem = (item: string) => {
     const sectionMap: { [key: string]: string } = {
       'Início': 'home',
-      'Recursos': 'features',
       'Como Funciona': 'how-it-works',
+      'Recursos': 'features',
       'Preços': 'pricing',
       'FAQ': 'faq',
       'Contato': 'contact'

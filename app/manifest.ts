@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'illunare 4.0 — IA multimodal com precisão de nível quântico',
     short_name: 'illunare',
-    description: 'Revolucione seu negócio com nossa plataforma de IA multimodal avançada. Inovação 4.0 eficiente, rentável e nacional.',
+    description: 'Revolucione seu negócio com nossa plataforma de IA multimodal de gestão avançada. Inovação 4.0 eficiente, rentável e nacional.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0f0f23',

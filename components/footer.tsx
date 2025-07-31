@@ -12,11 +12,11 @@ const Footer = () => {
 
   const handleNavClick = (item: string) => {
     const sectionMap: { [key: string]: string } = {
+      'Como Funciona': 'how-it-works',
       'Recursos': 'features',
       'Preços': 'pricing',
       'FAQ': 'faq',
-      'Contato': 'contact',
-      'Como Funciona': 'how-it-works'
+      'Contato': 'contact'
     };
     
     const targetId = sectionMap[item];
@@ -38,8 +38,8 @@ const Footer = () => {
 
   const links = {
     produto: [
-      { name: 'Recursos', hasAnchor: true },
       { name: 'Como Funciona', hasAnchor: true },
+      { name: 'Recursos', hasAnchor: true },
       { name: 'Preços', hasAnchor: true },
       { name: 'API', hasAnchor: false },
       { name: 'Documentação', hasAnchor: false }
@@ -81,7 +81,7 @@ const Footer = () => {
                 <Logo />
               </div>
               <p className="text-muted-foreground text-sm mt-4 leading-relaxed">
-                Revolucione seu negócio com nossa plataforma de IA multimodal avançada. Da concepção ao resultado em minutos - não em meses.
+                Revolucione seu negócio com nossa plataforma de IA multimodal de gestão avançada. Da concepção ao resultado em minutos - não em meses.
               </p>
               
               <div className="flex items-center gap-4 mt-8">
